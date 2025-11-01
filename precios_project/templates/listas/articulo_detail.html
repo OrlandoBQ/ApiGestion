@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-3xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+  <div class="bg-white dark:bg-slate-800 shadow rounded-lg p-6">
+    <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
+      {{ articulo.codigo }} - {{ articulo.nombre }}
+    </h1>
+
+    <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+      <div>
+        <dt class="font-medium text-gray-500 dark:text-gray-400">Línea</dt>
+        <dd class="text-gray-900 dark:text-gray-100">{{ articulo.linea.nombre|default:"-" }}</dd>
+      </div>
+
+      <div>
+        <dt class="font-medium text-gray-500 dark:text-gray-400">Grupo</dt>
+        <dd class="text-gray-900 dark:text-gray-100">{{ articulo.grupo.nombre|default:"-" }}</dd>
+      </div>
+
+      <div>
+        <dt class="font-medium text-gray-500 dark:text-gray-400">Último Costo</dt>
+        <dd class="text-gray-900 dark:text-gray-100">{{ articulo.ultimo_costo }}</dd>
+      </div>
+    </dl>
+
+    <div class="mt-6 flex gap-3">
+      <a href="{% url 'listas:articulo_update' articulo.pk %}"
+         class="px-4 py-2 rounded-md bg-amber-400 hover:bg-amber-500 text-sm font-medium text-gray-900">
+        Editar
+      </a>
+      <a href="{% url 'listas:articulo_delete' articulo.pk %}"
+         class="px-4 py-2 rounded-md bg-red-600 hover:bg-red-700 text-sm font-medium text-white">
+        Eliminar
+      </a>
+      <a href="{% url 'listas:articulo_list' %}"
+         class="px-4 py-2 rounded-md bg-gray-100 hover:bg-gray-200 text-sm font-medium text-gray-700">
+        Volver
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

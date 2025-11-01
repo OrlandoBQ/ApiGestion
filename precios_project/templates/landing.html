@@ -1,0 +1,246 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" class="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestor de Listas de Precios</title>
+
+    <!-- Tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2463eb",
+              "background-light": "#f6f6f8",
+              "background-dark": "#111621",
+            },
+            fontFamily: { display: ["Inter", "sans-serif"] },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200"
+  >
+    <div class="flex flex-col min-h-screen">
+      <!-- HEADER -->
+      <header
+        class="w-full bg-white dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800"
+      >
+        <div
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16"
+        >
+          <div class="flex items-center gap-4">
+            <div class="text-primary size-6">
+              <svg
+                fill="none"
+                viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="currentColor"
+                  d="M47.24 24L24 47.24 0.76 24 24 0.76 47.24 24ZM12.24 21h23.52L24 9.24 12.24 21Z"
+                />
+              </svg>
+            </div>
+            <h2 class="text-lg font-bold text-gray-900 dark:text-white">
+              Gestor de Listas de Precios
+            </h2>
+          </div>
+          <nav class="hidden md:flex items-center gap-8">
+            <a
+              href="#inicio"
+              class="text-sm font-medium hover:text-primary transition-colors"
+              >Inicio</a
+            >
+            <a
+              href="#features"
+              class="text-sm font-medium hover:text-primary transition-colors"
+              >Funcionalidades</a
+            >
+            <a
+              href="#tecnologia"
+              class="text-sm font-medium hover:text-primary transition-colors"
+              >Tecnología</a
+            >
+            <a
+              href="{% url 'login' %}"
+              class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-opacity-90 transition"
+            >
+              Login
+            </a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- HERO -->
+      <main class="flex-grow">
+        <section id="inicio" class="py-20 sm:py-24 lg:py-32">
+          <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12"
+          >
+            <div class="lg:w-1/2 flex flex-col gap-6 text-center lg:text-left">
+              <h1
+                class="text-4xl font-black sm:text-5xl lg:text-6xl text-gray-900 dark:text-white"
+              >
+                Controla tus precios, maximiza tus márgenes
+              </h1>
+              <p class="text-lg text-gray-600 dark:text-gray-400">
+                Gestiona de forma centralizada las listas de precios, reglas de
+                descuentos y validaciones para todas tus sucursales y canales.
+              </p>
+              <div class="mt-4 flex justify-center lg:justify-start">
+                <a
+                  href="#"
+                  class="bg-primary text-white px-5 py-3 rounded-lg font-bold hover:bg-opacity-90 transition transform hover:scale-105"
+                >
+                  Ir al sistema
+                </a>
+              </div>
+            </div>
+            <div class="lg:w-1/2 flex justify-center">
+              <div
+                class="w-full max-w-md aspect-square bg-gray-200 dark:bg-gray-800 rounded-xl flex items-center justify-center"
+              >
+                <span class="material-symbols-outlined text-9xl text-primary"
+                  >monitoring</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section
+          id="features"
+          class="py-20 sm:py-24 lg:py-32 bg-white dark:bg-background-dark"
+        >
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              Beneficios Clave
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-12">
+              Descubre cómo nuestro sistema puede transformar la gestión de
+              precios en tu empresa.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {% for feature in features %}
+              <div class="feature">
+                <h3>{{ feature }}</h3>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+
+        <!-- TECH -->
+        <section id="tecnologia" class="py-20 sm:py-24 lg:py-32">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              Tecnología Confiable
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-10">
+              Construido sobre tecnologías robustas para garantizar rendimiento,
+              seguridad y escalabilidad.
+            </p>
+            <div class="flex justify-center gap-16">
+              <div class="flex flex-col items-center">
+                <svg
+                  class="h-12 w-12 text-green-700 dark:text-green-400"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <title>Django</title>
+                  <path
+                    fill="currentColor"
+                    d="M16.992 0H5.004C2.244 0 0 2.244 0 5.004v13.992C0 21.756 2.244 24 5.004 24h13.992C21.756 24 24 21.756 24 18.996V5.004C24 2.244 21.756 0 18.996 0h-2.004zM9.54 19.5c-.348.012-.66-.108-.888-.336-.264-.264-.384-.624-.336-.972V5.736c-.048-.348.072-.708.336-.972.228-.228.54-.348.888-.336h5.256c.192 0 .36.072.504.192.144.12.216.3.216.48v1.944c0 .18-.072.36-.192.504-.12.144-.3.216-.48.216H11.7v1.512h2.52c.192 0 .36.072.504.192.144.12.216.3.216.48v1.944c0 .18-.072.36-.192.504-.12.144-.3.216-.48.216h-2.52v3.744c0 .36-.144.696-.384.948-.228.24-.552.384-.888.372h-.984z"
+                  />
+                </svg>
+                <p
+                  class="text-sm mt-2 font-semibold text-gray-700 dark:text-gray-300"
+                >
+                  Django
+                </p>
+              </div>
+              <div class="flex flex-col items-center">
+                <svg
+                  class="h-12 w-12 text-cyan-600 dark:text-cyan-400"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <title>Tailwind CSS</title>
+                  <path
+                    fill="currentColor"
+                    d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8-1.2 4.8.6 7.2 3.6 7.2 2.4 0 3.6-1.2 4.8-2.4.6-.6 1.2-1.2 2.4-1.2 2.4 0 3.6 1.2 4.8 2.4.6.6 1.2 1.2 2.4 1.2 2.4 0 3.6-1.2 4.8-2.4.6-.6 1.2-1.2 2.4-1.2"
+                  />
+                </svg>
+                <p
+                  class="text-sm mt-2 font-semibold text-gray-700 dark:text-gray-300"
+                >
+                  TailwindCSS
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- FOOTER -->
+      <footer
+        class="bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 py-8"
+      >
+        <div
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4"
+        >
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            © 2025 Taller LP. Todos los derechos reservados.
+          </p>
+          <div class="flex gap-6">
+            <a
+              href="#"
+              class="text-gray-500 hover:text-primary transition-colors"
+              >LinkedIn</a
+            >
+            <a
+              href="#"
+              class="text-gray-500 hover:text-primary transition-colors"
+              >Email</a
+            >
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

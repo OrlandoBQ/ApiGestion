@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-3xl mx-auto p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg mt-10">
+  <div class="flex items-center gap-3 mb-6">
+    <div class="bg-primary/20 text-primary p-3 rounded-xl">
+      <span class="material-symbols-outlined text-3xl">
+        {{ form.instance.pk|yesno:"edit_note,add_circle" }}
+      </span>
+    </div>
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+      {% if form.instance.pk %}Editar Lista{% else %}Crear Lista{% endif %}
+    </h1>
+  </div>
+
+  <form method="post" class="space-y-6">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {% for field in form %}
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}
+            <p class="text-xs text-gray-500">{{ field.help_text }}</p>
+          {% endif %}
+          {% for err in field.errors %}
+            <p class="text-sm text-red-600">{{ err }}</p>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="pt-6 flex justify-end gap-3">
+      <a href="{% url 'listas:lista_list' %}"
+         class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+        Cancelar
+      </a>
+      <button type="submit"
+              class="px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 shadow-md">
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

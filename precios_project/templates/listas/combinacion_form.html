@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-3xl mx-auto py-8 px-4">
+  <div class="bg-white dark:bg-slate-800 shadow rounded-lg p-6">
+    <h2 class="text-xl font-semibold mb-4">{% if form.instance.pk %}Editar combinación{% else %}Nueva combinación{% endif %}</h2>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div class="space-y-4">
+        <div>{{ form.lista.label_tag }}{{ form.lista }}</div>
+        <div>{{ form.nombre.label_tag }}{{ form.nombre }}</div>
+        <div>{{ form.tipo_aplicacion.label_tag }}{{ form.tipo_aplicacion }}</div>
+        <div>{{ form.porcentaje_descuento.label_tag }}{{ form.porcentaje_descuento }}</div>
+        <div>{{ form.precio_fijo.label_tag }}{{ form.precio_fijo }}</div>
+        <div>{{ form.minimo_por_articulo.label_tag }}{{ form.minimo_por_articulo }}</div>
+        <div>{{ form.articulos.label_tag }}{{ form.articulos }}</div>
+        <div>{{ form.activo.label_tag }}{{ form.activo }}</div>
+      </div>
+
+      <div class="mt-6 flex gap-3">
+        <button type="submit" class="px-4 py-2 rounded-md bg-green-600 text-white">Guardar</button>
+        <a href="{% url 'listas:combinacion_list' %}" class="px-4 py-2 rounded-md bg-gray-100">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

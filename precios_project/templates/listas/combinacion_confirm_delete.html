@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center py-12 px-4">
+  <div class="max-w-md w-full bg-white dark:bg-slate-800 shadow-md rounded-lg p-6">
+    <h3 class="text-lg font-medium">Eliminar combinación</h3>
+    <p class="mt-2 text-sm text-gray-600">¿Seguro que deseas eliminar la combinación <strong>{{ object.nombre }}</strong>?</p>
+
+    <form method="post" class="mt-6 flex justify-center gap-3">
+      {% csrf_token %}
+      <button type="submit" class="px-4 py-2 rounded-md bg-red-600 text-white">Sí, eliminar</button>
+      <a href="{% url 'listas:combinacion_list' %}" class="px-4 py-2 rounded-md bg-gray-100">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-3xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+  <div class="bg-white dark:bg-slate-800 shadow rounded-lg p-6">
+    <h2 class="text-xl font-semibold mb-4">
+      {% if form.instance.pk %}Editar Orden{% else %}Nueva Orden{% endif %}
+    </h2>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div class="space-y-4">
+        {{ form.as_p }}
+      </div>
+
+      <h3 class="mt-6 mb-2 font-medium">Líneas</h3>
+      {{ formset.management_form }}
+      <div class="space-y-3">
+        {% for subform in formset %}
+          <div class="p-3 border rounded-md bg-gray-50 dark:bg-slate-700">
+            {% if subform.non_field_errors %}{{ subform.non_field_errors }}{% endif %}
+            <div class="grid grid-cols-3 gap-3">
+              <div>{{ subform.articulo.label_tag }}{{ subform.articulo }}</div>
+              <div>{{ subform.cantidad.label_tag }}{{ subform.cantidad }}</div>
+              <div>{{ subform.precio_unitario.label_tag }}{{ subform.precio_unitario }}</div>
+            </div>
+            <div class="mt-2">{{ subform.DELETE }} <label>Eliminar</label></div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="mt-6 flex items-center gap-3">
+        <button type="submit" class="px-4 py-2 rounded-md text-white bg-green-600">Guardar</button>
+        <a href="{% url 'listas:orden_list' %}" class="px-4 py-2 rounded-md bg-gray-100">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="p-6 max-w-xl mx-auto">
+  <h1 class="text-xl font-bold mb-4">Eliminar Regla</h1>
+  <p>¿Seguro que quieres eliminar la regla <strong>{{ object }}</strong>?</p>
+  <form method="post" class="mt-4">
+    {% csrf_token %}
+    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded">Eliminar</button>
+    <a href="{% url 'listas:regla_list' %}" class="ml-2 px-4 py-2 border rounded">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

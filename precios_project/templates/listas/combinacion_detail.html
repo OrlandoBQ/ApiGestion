@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-3xl mx-auto py-8 px-4">
+  <div class="bg-white dark:bg-slate-800 shadow rounded-lg p-6">
+    <h1 class="text-2xl font-semibold mb-4">{{ combinacion.nombre }}</h1>
+    <p class="text-sm text-gray-500 mb-4">Lista: {{ combinacion.lista.nombre }}</p>
+
+    <dl class="grid grid-cols-1 gap-4 text-sm">
+      <div>
+        <dt class="font-medium text-gray-500">Tipo de aplicación</dt>
+        <dd class="text-gray-900">{{ combinacion.get_tipo_aplicacion_display }}</dd>
+      </div>
+      <div>
+        <dt class="font-medium text-gray-500">Valor (porcentaje / precio)</dt>
+        <dd class="text-gray-900">
+          {% if combinacion.tipo_aplicacion == 'descuento_pct' %}
+            {{ combinacion.porcentaje_descuento }} %
+          {% else %}
+            {{ combinacion.precio_fijo }}
+          {% endif %}
+        </dd>
+      </div>
+      <div>
+        <dt class="font-medium text-gray-500">Mínimo por artículo</dt>
+        <dd class="text-gray-900">{{ combinacion.minimo_por_articulo }}</dd>
+      </div>
+      <div>
+        <dt class="font-medium text-gray-500">Artículos</dt>
+        <dd class="text-gray-900">
+          <ul class="list-disc pl-5">
+            {% for art in combinacion.articulos.all %}
+            <li>{{ art.codigo }} — {{ art.nombre }}</li>
+            {% endfor %}
+          </ul>
+        </dd>
+      </div>
+    </dl>
+
+    <div class="mt-6 flex gap-2">
+      <a href="{% url 'listas:combinacion_update' combinacion.pk %}" class="px-3 py-2 rounded-md bg-amber-400">Editar</a>
+      <a href="{% url 'listas:combinacion_delete' combinacion.pk %}" class="px-3 py-2 rounded-md bg-red-600 text-white">Eliminar</a>
+      <a href="{% url 'listas:combinacion_list' %}" class="px-3 py-2 rounded-md bg-gray-100">Volver</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" class="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Gestor de Listas de Precios{% endblock %}</title>
+
+  <!-- Tailwind y fuentes -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: { primary: "#137fec", "background-light": "#f6f7f8", "background-dark": "#101922" },
+          fontFamily: { display: ["Inter"] },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="font-display bg-background-light dark:bg-background-dark">
+  <div class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    {% include "includes/sidebar.html" %}
+
+    <!-- Contenido principal -->
+    <main class="flex-1 flex flex-col">
+      {% include "includes/header.html" %}
+
+      <section class="flex-1 p-6 md:p-8">
+        {% block content %}{% endblock %}
+      </section>
+    </main>
+
+  </div>
+</body>
+</html>

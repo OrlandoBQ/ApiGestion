@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full bg-white dark:bg-slate-800 shadow-md rounded-lg p-6">
+    <div class="text-center">
+      <svg class="mx-auto h-12 w-12 text-red-600" xmlns="http://www.w3.org/2000/svg"
+           fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M12 9v2m0 4v.01M6 7h12" />
+      </svg>
+      <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-gray-100">
+        ¿Estás seguro que deseas eliminar este artículo?
+      </h3>
+      <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">
+        <strong class="text-gray-800 dark:text-gray-100">{{ object.codigo }} - {{ object.nombre }}</strong>
+      </p>
+    </div>
+
+    <form method="post" class="mt-6 flex justify-center gap-3">
+      {% csrf_token %}
+      <button type="submit"
+              class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow">
+        Sí, eliminar
+      </button>
+      <a href="{% url 'listas:articulo_list' %}"
+         class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200">
+        Cancelar
+      </a>
+    </form>
+  </div>
+</div>
+{% endblock %}

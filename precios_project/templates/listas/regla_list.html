@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-2xl font-bold">Reglas de Precio</h1>
+    <a href="{% url 'listas:regla_create' %}" class="bg-primary text-white px-3 py-2 rounded">Crear regla</a>
+  </div>
+
+  <div class="grid gap-3">
+    {% for regla in reglas %}
+      <div class="p-4 border rounded bg-white dark:bg-gray-900 flex justify-between items-start">
+        <div>
+          <a href="{% url 'listas:regla_detail' regla.pk %}" class="text-lg font-semibold">{{ regla.get_tipo_display|default:regla.tipo }}</a>
+          <div class="text-sm text-gray-500">Lista: {{ regla.lista.nombre }} — Prioridad: {{ regla.prioridad }}</div>
+          {% if regla.porcentaje_descuento %}<div class="text-sm text-gray-600">Descuento: {{ regla.porcentaje_descuento }}%</div>{% endif %}
+        </div>
+        <div class="text-right">
+          <a href="{% url 'listas:regla_update' regla.pk %}" class="text-blue-600 mr-2">Editar</a>
+          <a href="{% url 'listas:regla_delete' regla.pk %}" class="text-red-600">Borrar</a>
+        </div>
+      </div>
+    {% empty %}
+      <p>No hay reglas registradas.</p>
+    {% endfor %}
+  </div>
+
+  {% if is_paginated %}
+    <div class="mt-4">
+      {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 border rounded mr-2">Anterior</a>{% endif %}
+      <span>Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1 border rounded ml-2">Siguiente</a>{% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+# ---- Entorno virtual ----
+venv/
+.env
+*.env
+
+# ---- Archivos compilados ----
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ---- Archivos de base de datos locales ----
+db.sqlite3
+
+# ---- Archivos de sistema ----
+.DS_Store
+Thumbs.db
+
+# ---- Configuración de IDEs ----
+.vscode/
+.idea/
+*.code-workspace
+
+# ---- Archivos de logs ----
+*.log
+
+# ---- Archivos de migración de Django ----
+# (opcional: si prefieres subirlos, quita esta sección)
+**/migrations/__pycache__/
+**/migrations/*.pyc
+# **/migrations/  ← solo si quieres regenerarlas siempre, normalmente se suben.
+
+# ---- Archivos estáticos compilados ----
+staticfiles/
+media/
+
+# ---- Backups o dumps ----
+*.bak
+*.sql
+
+# ---- Archivos temporales o cache ----
+*.tmp
+*.swp
+*.swo

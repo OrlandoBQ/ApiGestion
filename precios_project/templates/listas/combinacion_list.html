@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-6xl mx-auto py-8 px-4">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-semibold">Combinaciones</h1>
+    <a href="{% url 'listas:combinacion_create' %}" class="px-4 py-2 rounded-md bg-indigo-600 text-white">➕ Nueva combinación</a>
+  </div>
+
+  <div class="bg-white dark:bg-slate-800 shadow rounded-lg overflow-hidden">
+    <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+      <thead class="bg-gray-50 dark:bg-slate-900">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">#</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Nombre</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Lista</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Artículos</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500">Tipo / Valor</th>
+          <th class="px-6 py-3 text-right text-xs font-medium text-gray-500">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
+        {% for combo in combinaciones %}
+        <tr class="hover:bg-gray-50 dark:hover:bg-slate-700">
+          <td class="px-6 py-4">{{ forloop.counter }}</td>
+          <td class="px-6 py-4"><a href="{% url 'listas:combinacion_detail' combo.pk %}" class="text-indigo-600 hover:underline">{{ combo.nombre }}</a></td>
+          <td class="px-6 py-4">{{ combo.lista.nombre }}</td>
+          <td class="px-6 py-4 text-sm">
+            {% for art in combo.articulos.all|slice:":5" %}
+              <span class="inline-block mr-1">{{ art.codigo }}</span>
+            {% endfor %}
+            {% if combo.articulos.count > 5 %}...{% endif %}
+          </td>
+          <td class="px-6 py-4">
+            {% if combo.tipo_aplicacion == 'descuento_pct' %}
+              {{ combo.porcentaje_descuento }}%
+            {% else %}
+              Precio fijo: {{ combo.precio_fijo }}
+            {% endif %}
+          </td>
+          <td class="px-6 py-4 text-right flex justify-end gap-2">
+            <a href="{% url 'listas:combinacion_update' combo.pk %}" class="px-3 py-1 rounded-md bg-amber-200">Editar</a>
+            <a href="{% url 'listas:combinacion_delete' combo.pk %}" class="px-3 py-1 rounded-md bg-red-600 text-white">Eliminar</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" class="px-6 py-8 text-center text-sm text-gray-500">No hay combinaciones.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

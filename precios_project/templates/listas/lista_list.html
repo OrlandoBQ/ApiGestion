@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Listas de Precios{% endblock %}
+
+{% block header_title %}Listas de Precios{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-xl font-bold text-gray-900 dark:text-white">
+    Listas de Precios
+  </h1>
+  <a
+    href="{% url 'listas:lista_create' %}"
+    class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/90"
+  >
+    + Nueva Lista
+  </a>
+</div>
+
+<div
+  class="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden"
+>
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead
+      class="text-xs text-gray-700 dark:text-gray-300 uppercase bg-gray-50 dark:bg-gray-800"
+    >
+      <tr>
+        <th class="px-6 py-3">Nombre</th>
+        <th class="px-6 py-3">Empresa / Sucursal</th>
+        <th class="px-6 py-3">Inicio</th>
+        <th class="px-6 py-3">Fin</th>
+        <th class="px-6 py-3">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for lista in listas %}
+      <tr
+        class="bg-white dark:bg-gray-900 border-b dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+      >
+        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+          {{ lista.nombre }}
+        </td>
+        <td class="px-6 py-4">
+          {{ lista.empresa.nombre }} / {{ lista.sucursal.nombre }}
+        </td>
+        <td class="px-6 py-4">{{ lista.fecha_inicio|date:"Y-m-d" }}</td>
+        <td class="px-6 py-4">{{ lista.fecha_fin|date:"Y-m-d" }}</td>
+        <td class="px-6 py-4">
+          <a
+            href="{% url 'listas:lista_update' lista.pk %}"
+            class="text-primary hover:underline mr-4"
+            >Editar</a
+          >
+
+          <a
+            href="{% url 'listas:lista_delete' lista.pk %}"
+            class="text-red-500 hover:underline"
+            >Eliminar</a
+          >
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+          No hay listas registradas.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

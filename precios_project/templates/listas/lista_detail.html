@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-3xl mx-auto p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg mt-10">
+  <div class="flex items-center gap-3 mb-6">
+    <div class="bg-primary/20 text-primary p-3 rounded-xl">
+      <span class="material-symbols-outlined text-3xl">receipt_long</span>
+    </div>
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ lista.nombre }}</h1>
+  </div>
+
+  <div class="grid gap-4 text-gray-700 dark:text-gray-300">
+    <p><strong class="font-semibold">Empresa:</strong> {{ lista.empresa.nombre }}</p>
+    <p><strong class="font-semibold">Sucursal:</strong> {{ lista.sucursal.nombre }}</p>
+    <p><strong class="font-semibold">Tipo:</strong> {{ lista.tipo }}</p>
+    <p><strong class="font-semibold">Canal:</strong> {{ lista.canal }}</p>
+    <p><strong class="font-semibold">Vigencia:</strong> {{ lista.fecha_inicio|date:"Y-m-d" }} — {{ lista.fecha_fin|date:"Y-m-d" }}</p>
+    <p><strong class="font-semibold">Estado:</strong> 
+      <span class="px-2 py-1 rounded-lg text-white 
+                   {% if lista.estado == 'Activo' %}bg-green-600{% else %}bg-gray-500{% endif %}">
+        {{ lista.estado }}
+      </span>
+    </p>
+  </div>
+
+  <div class="mt-8 flex justify-end gap-3">
+    <a href="{% url 'listas:lista_list' %}"
+       class="px-4 py-2 border rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+      <span class="material-symbols-outlined align-middle mr-1">arrow_back</span> Volver
+    </a>
+    <a href="{% url 'listas:lista_update' lista.pk %}"
+       class="px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-primary/90">
+      <span class="material-symbols-outlined align-middle mr-1">edit</span> Editar
+    </a>
+  </div>
+</div>
+{% endblock %}

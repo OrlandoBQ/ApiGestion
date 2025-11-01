@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full bg-white dark:bg-slate-800 shadow-md rounded-lg p-6">
+    <div class="text-center">
+      <h3 class="mt-4 text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">¿Eliminar orden?</h3>
+      <p class="mt-2 text-sm text-gray-600 dark:text-gray-300"><strong>Orden #{{ object.id }}</strong></p>
+    </div>
+
+    <form method="post" class="mt-6 flex justify-center gap-3">
+      {% csrf_token %}
+      <button type="submit" class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700">Sí, eliminar</button>
+      <a href="{% url 'listas:orden_list' %}" class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

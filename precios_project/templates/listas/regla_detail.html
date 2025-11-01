@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="p-6 max-w-2xl mx-auto">
+  <h1 class="text-2xl font-bold mb-2">Regla: {{ regla.get_tipo_display|default:regla.tipo }}</h1>
+  <p class="text-sm text-gray-500 mb-4">Lista: {{ regla.lista.nombre }} — Prioridad: {{ regla.prioridad }}</p>
+
+  <div class="space-y-2">
+    <p><strong>Activo:</strong> {{ regla.activo }}</p>
+    <p><strong>Porcentaje descuento:</strong> {{ regla.porcentaje_descuento }}%</p>
+    <p><strong>Canal:</strong> {{ regla.canal }}</p>
+    <p><strong>Min/Max unidades:</strong> {{ regla.min_unidades }} / {{ regla.max_unidades }}</p>
+    <p><strong>Min/Max monto:</strong> {{ regla.min_monto }} / {{ regla.max_monto }}</p>
+    {% if regla.descripcion %}<p><strong>Descripción:</strong> {{ regla.descripcion }}</p>{% endif %}
+  </div>
+
+  <div class="mt-6">
+    <a href="{% url 'listas:regla_update' regla.pk %}" class="px-3 py-2 bg-primary text-white rounded">Editar</a>
+    <a href="{% url 'listas:regla_list' %}" class="px-3 py-2 border rounded ml-2">Volver</a>
+  </div>
+</div>
+{% endblock %}

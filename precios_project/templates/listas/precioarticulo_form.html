@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="p-6 max-w-2xl mx-auto">
+  <h1 class="text-2xl font-bold mb-4">{% if form.instance.pk %}Editar Precio{% else %}Crear Precio{% endif %}</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="grid gap-4">
+      {% for field in form %}
+        <div>
+          <label class="block text-sm font-medium text-gray-700">{{ field.label }}</label>
+          {{ field }}
+          {% for err in field.errors %}<p class="text-sm text-red-600">{{ err }}</p>{% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="mt-4 flex gap-2">
+      <button type="submit" class="bg-primary text-white px-4 py-2 rounded">Guardar</button>
+      <a href="{% url 'listas:precio_list' %}" class="px-4 py-2 border rounded">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

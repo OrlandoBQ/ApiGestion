@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">Lista de Artículos</h1>
+    <a href="{% url 'listas:articulo_create' %}"
+       class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 shadow">
+      ➕ Nuevo Artículo
+    </a>
+  </div>
+
+  <div class="bg-white dark:bg-slate-800 shadow rounded-lg overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+      <thead class="bg-gray-50 dark:bg-slate-900">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Código</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Línea</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Grupo</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Último Costo</th>
+          <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
+        {% for articulo in articulos %}
+        <tr class="hover:bg-gray-50 dark:hover:bg-slate-700">
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-100">{{ articulo.codigo }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <a href="{% url 'listas:articulo_detail' articulo.pk %}" class="text-indigo-600 hover:underline">{{ articulo.nombre }}</a>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
+            {{ articulo.linea.nombre|default:"-" }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
+            {{ articulo.grupo.nombre|default:"-" }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">{{ articulo.ultimo_costo }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex justify-end gap-2">
+            <a href="{% url 'listas:articulo_update' articulo.pk %}" class="px-3 py-1 rounded-md bg-amber-200 hover:bg-amber-300">Editar</a>
+            <a href="{% url 'listas:articulo_delete' articulo.pk %}" class="px-3 py-1 rounded-md bg-red-600 text-white hover:bg-red-700">Eliminar</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6" class="px-6 py-8 text-center text-sm text-gray-500">No hay artículos registrados.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Gestor de Listas{% endblock %}
+{% block header_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+  <h2 class="text-xl font-bold text-gray-900 dark:text-white">Resumen</h2>
+  <div class="flex gap-3">
+    <a
+      href="{% url 'listas:lista_list' %}"
+      class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/90"
+    >
+      Ir a Listas
+    </a>
+    <a
+      href="#"
+      class="border border-gray-300 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-50"
+    >
+      Ir a Reglas
+    </a>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
+  <div class="p-6 rounded-xl border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+    <p class="text-sm text-gray-500">Listas totales</p>
+    <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ total_listas }}</p>
+  </div>
+  <div class="p-6 rounded-xl border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+    <p class="text-sm text-gray-500">Listas vigentes</p>
+    <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ listas_vigentes }}</p>
+  </div>
+  <div class="p-6 rounded-xl border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+    <p class="text-sm text-gray-500">Reglas activas</p>
+    <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ total_reglas }}</p>
+  </div>
+  <div class="p-6 rounded-xl border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+    <p class="text-sm text-gray-500">Combinaciones</p>
+    <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ total_combinaciones }}</p>
+  </div>
+  <div class="p-6 rounded-xl border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+    <p class="text-sm text-gray-500">Precios (artículo)</p>
+    <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ total_precios_articulo }}</p>
+  </div>
+  <div class="p-6 rounded-xl border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+    <p class="text-sm text-gray-500">Empresas / Sucursales</p>
+    <p class="text-2xl font-bold text-gray-900 dark:text-white">
+      {{ total_empresas }} / {{ total_sucursales }}
+    </p>
+  </div>
+</div>
+
+<!-- Tabla de listas -->
+<div class="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 dark:text-gray-300 uppercase bg-gray-50 dark:bg-gray-800">
+        <tr>
+          <th class="px-6 py-3">Nombre</th>
+          <th class="px-6 py-3">Empresa / Sucursal</th>
+          <th class="px-6 py-3">Inicio</th>
+          <th class="px-6 py-3">Fin</th>
+          <th class="px-6 py-3">Estado</th>
+          <th class="px-6 py-3">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for lista in listas %}
+        <tr class="bg-white dark:bg-gray-900 border-b dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+          <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">{{ lista.nombre }}</td>
+          <td class="px-6 py-4">{{ lista.empresa.nombre }} / {{ lista.sucursal.nombre }}</td>
+          <td class="px-6 py-4">{{ lista.fecha_inicio|date:"Y-m-d" }}</td>
+          <td class="px-6 py-4">{{ lista.fecha_fin|date:"Y-m-d" }}</td>
+          <td class="px-6 py-4">
+            {% if lista.estado == 'vigente' %}
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-green-100 text-green-800">Activo</span>
+            {% else %}
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-gray-200 text-gray-800">Inactivo</span>
+            {% endif %}
+          </td>
+          <td class="px-6 py-4 text-right">
+            <a href="{% url 'listas:lista_update' lista.pk %}" class="text-primary hover:underline mr-4">Editar</a>
+            <a href="{% url 'listas:lista_detail' lista.pk %}" class="text-gray-600 hover:underline">Ver detalles</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6" class="px-6 py-4 text-center text-gray-500">No hay listas registradas.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
