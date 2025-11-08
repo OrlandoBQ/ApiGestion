@@ -5,7 +5,6 @@ from django.contrib.auth import get_user_model
 from core.choices import TIPO_LISTA_CHOICES, CANAL_CHOICES, ESTADO_CHOICES, TIPO_REGLA_CHOICES
 User = get_user_model()
 
-#--- Creacion de modelos ---#
 class Empresa(models.Model):
     nombre = models.CharField(max_length=200)
     ruc = models.CharField(max_length=20, blank=True, null=True)
@@ -60,7 +59,6 @@ class DetalleOrdenCompraCliente(models.Model):
         return f"{self.orden_id} - {self.articulo.codigo}"
 
 
-#--- Creacion de modelos de la lista de precios ---#
 class ListaPrecio(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='listas')
     sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE, related_name='listas')
@@ -104,7 +102,6 @@ class PrecioArticulo(models.Model):
         unique_together = ('lista', 'articulo')
 
     def clean(self):
-        # Funcion de comparar si el precio_base no es none
         if self.precio_base is not None and self.articulo and not self.autorizado_bajo_costo:
             if self.precio_base < self.articulo.ultimo_costo:
                 raise ValidationError("El precio base no puede ser inferior al último costo registrado sin autorización.")
@@ -157,8 +154,6 @@ class CombinacionProducto(models.Model):
     activo = models.BooleanField(default=True)
 
     def clean(self):
-        # Tener en cuenta que en create/update la relación M2M aun no esta disponible en clean() hasta después de realizar save().
-        # Por ello, la comprobación explícita de >1 artículo se debe realizar en el serializer o en un post_save signal.
         pass
 
     def __str__(self):

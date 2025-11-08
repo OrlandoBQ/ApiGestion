@@ -14,8 +14,8 @@ def landing(request):
 
 urlpatterns = [
     path('', landing, name='landing'),
-    path('login/', listas_views.login_view, name='login'),  # tu vista de login personalizada
-    path('logout/', listas_views.logout_view, name='logout'),  # para cerrar sesión
+    path('login/', listas_views.login_view, name='login'), 
+    path('logout/', listas_views.logout_view, name='logout'),
     path('admin/', admin.site.urls),
     path('listas/', include('listas.urls')),
 ]

@@ -54,7 +54,6 @@ class LineaArticuloSerializer(serializers.ModelSerializer):
 
 
 class GrupoArticuloSerializer(serializers.ModelSerializer):
-    # Incluimos la línea de artículo asociada (solo lectura)
     linea = LineaArticuloSerializer(read_only=True)
     linea_id = serializers.PrimaryKeyRelatedField(
         queryset=LineaArticulo.objects.all(), source='linea', write_only=True, allow_null=True

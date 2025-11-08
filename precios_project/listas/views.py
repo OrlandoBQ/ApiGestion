@@ -102,7 +102,6 @@ class CalcularPrecioAPIView(APIView):
         sucursal = get_object_or_404(Sucursal, pk=data['sucursal_id'])
         articulo = get_object_or_404(Articulo, pk=data['articulo_id'])
 
-        # aceptar carrito opcional: [{'articulo_id':..,'cantidad':..}, ...]
         carrito = request.data.get('carrito', None)
 
         res = PrecioService.calcular_precio(
@@ -185,7 +184,6 @@ class CombinacionProductoViewSet(viewsets.ModelViewSet):
         return qs
 
 
-# ---------- Readonly lookup ViewSets ----------
 class EmpresaViewSet(viewsets.ModelViewSet):
     queryset = Empresa.objects.all()
     serializer_class = EmpresaSerializer
