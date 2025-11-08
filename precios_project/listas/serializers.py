@@ -44,6 +44,26 @@ class ArticuloSerializer(serializers.ModelSerializer):
     class Meta:
         model = Articulo
         fields = ['id', 'codigo', 'nombre', 'ultimo_costo', 'linea', 'grupo']
+        
+# --- Línea y Grupo de Artículo CRUD ---
+
+class LineaArticuloSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LineaArticulo
+        fields = ['id', 'nombre']
+
+
+class GrupoArticuloSerializer(serializers.ModelSerializer):
+    # Incluimos la línea de artículo asociada (solo lectura)
+    linea = LineaArticuloSerializer(read_only=True)
+    linea_id = serializers.PrimaryKeyRelatedField(
+        queryset=LineaArticulo.objects.all(), source='linea', write_only=True, allow_null=True
+    )
+
+    class Meta:
+        model = GrupoArticulo
+        fields = ['id', 'nombre', 'linea', 'linea_id']
+
 
 # --- ListaPrecio CRUD ---
 class ListaPrecioSerializer(serializers.ModelSerializer):

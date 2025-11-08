@@ -14,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from .forms import ListaPrecioForm, ReglaPrecioForm, PrecioArticuloForm, ArticuloForm, LineaArticuloForm, GrupoArticuloForm, OrdenForm, LineaOrdenFormSet, CombinacionProductoForm
 from .models import ListaPrecio, PrecioArticulo, ReglaPrecio, CombinacionProducto, Empresa, Sucursal, Articulo , LineaArticulo, GrupoArticulo, Orden, LineaOrden   
-from .serializers import ListaPrecioSerializer, PrecioArticuloSerializer, ReglaPrecioSerializer, CombinacionProductoSerializer, EmpresaSerializer, SucursalSerializer, ArticuloSerializer, PrecioConsultaSerializer, PrecioResultadoSerializer
+from .serializers import LineaArticuloSerializer, GrupoArticuloSerializer, ListaPrecioSerializer, PrecioArticuloSerializer, ReglaPrecioSerializer, CombinacionProductoSerializer, EmpresaSerializer, SucursalSerializer, ArticuloSerializer, PrecioConsultaSerializer, PrecioResultadoSerializer
 from .services import PrecioService
 from django.contrib.auth.decorators import login_required
 
@@ -186,23 +186,35 @@ class CombinacionProductoViewSet(viewsets.ModelViewSet):
 
 
 # ---------- Readonly lookup ViewSets ----------
-class EmpresaViewSet(viewsets.ReadOnlyModelViewSet):
+class EmpresaViewSet(viewsets.ModelViewSet):
     queryset = Empresa.objects.all()
     serializer_class = EmpresaSerializer
     authentication_classes = [TokenAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticated]
 
-
-class SucursalViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Sucursal.objects.select_related('empresa').all()
+class SucursalViewSet(viewsets.ModelViewSet):
+    queryset = Sucursal.objects.all()
     serializer_class = SucursalSerializer
     authentication_classes = [TokenAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticated]
 
-
-class ArticuloViewSet(viewsets.ReadOnlyModelViewSet):
+class ArticuloViewSet(viewsets.ModelViewSet):
     queryset = Articulo.objects.all()
     serializer_class = ArticuloSerializer
+    authentication_classes = [TokenAuthentication, SessionAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+class LineaArticuloViewSet(viewsets.ModelViewSet):
+    queryset = LineaArticulo.objects.all()
+    serializer_class = LineaArticuloSerializer
+    authentication_classes = [TokenAuthentication, SessionAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+class GrupoArticuloViewSet(viewsets.ModelViewSet):
+    queryset = GrupoArticulo.objects.all()
+    serializer_class = GrupoArticuloSerializer
     authentication_classes = [TokenAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticated]
 

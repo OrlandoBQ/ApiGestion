@@ -14,6 +14,8 @@ router.register(r'combinaciones', views.CombinacionProductoViewSet, basename='co
 router.register(r'empresas', views.EmpresaViewSet, basename='empresas')
 router.register(r'sucursales', views.SucursalViewSet, basename='sucursales')
 router.register(r'articulos', views.ArticuloViewSet, basename='articulos')
+router.register(r'lineas-articulo', views.LineaArticuloViewSet, basename='lineas-articulo')
+router.register(r'grupos-articulo', views.GrupoArticuloViewSet, basename='grupos-articulo')
 
 urlpatterns = [
     path('', views.index, name='listas_index'),
