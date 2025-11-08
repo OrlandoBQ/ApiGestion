@@ -2,6 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import Empresa, Sucursal, Articulo, GrupoArticulo, LineaArticulo, DetalleOrdenCompraCliente, ListaPrecio, PrecioArticulo, ReglaPrecio, CombinacionProducto
+
 admin.site.register(Empresa)
 admin.site.register(Sucursal)
 admin.site.register(LineaArticulo)

@@ -27,7 +27,6 @@ class PrecioResultadoSerializer(serializers.Serializer):
     autorizado_bajo_costo = serializers.BooleanField()
     razon_bajo_costo = serializers.CharField(allow_null=True, allow_blank=True, required=False)
 
-
 # --- Entidades básicas ---
 class EmpresaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,7 +36,6 @@ class EmpresaSerializer(serializers.ModelSerializer):
 class SucursalSerializer(serializers.ModelSerializer):
     empresa = EmpresaSerializer(read_only=True)
     empresa_id = serializers.PrimaryKeyRelatedField(queryset=Empresa.objects.all(), source='empresa', write_only=True)
-
     class Meta:
         model = Sucursal
         fields = ['id', 'nombre', 'direccion', 'empresa', 'empresa_id']

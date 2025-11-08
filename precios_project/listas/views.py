@@ -54,9 +54,6 @@ def dashboard(request):
 
 @login_required
 def dashboard(request):
-    """
-    Vista del dashboard con métricas y últimas listas.
-    """
     # métricas
     total_listas = ListaPrecio.objects.count()
     listas_vigentes = ListaPrecio.objects.filter(estado='vigente').count()
@@ -515,7 +512,7 @@ def confirmar_orden(request, orden_id):
     messages.success(request, 'Orden confirmada correctamente.')
     return redirect('listas:orden_detail', pk=orden.pk)
 
-
+# CRUD web para CombinacionProducto
 class CombinacionListView(LoginRequiredMixin, ListView):
     model = CombinacionProducto
     template_name = 'listas/combinacion_list.html'

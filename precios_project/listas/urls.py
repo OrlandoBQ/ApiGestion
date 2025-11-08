@@ -19,6 +19,7 @@ urlpatterns = [
     path('', views.index, name='listas_index'),
     path('api/precio/calcular/', views.CalcularPrecioAPIView.as_view(), name='api_calcular_precio'),
     path('api/', include(router.urls)),
+    
     path('dashboard/', views.dashboard, name='dashboard'),
 
     # CRUD web
@@ -28,14 +29,14 @@ urlpatterns = [
     path('listas/<int:pk>/editar/', views.ListaPrecioUpdateView.as_view(), name='lista_update'),
     path('listas/<int:pk>/eliminar/', views.ListaPrecioDeleteView.as_view(), name='lista_delete'),
     
-    # rutas para reglas (agregar en listas/urls.py)
+    # rutas para reglas
     path('reglas/', views.ReglaPrecioListView.as_view(), name='regla_list'),
     path('reglas/nueva/', views.ReglaPrecioCreateView.as_view(), name='regla_create'),
     path('reglas/<int:pk>/', views.ReglaPrecioDetailView.as_view(), name='regla_detail'),
     path('reglas/<int:pk>/editar/', views.ReglaPrecioUpdateView.as_view(), name='regla_update'),
     path('reglas/<int:pk>/borrar/', views.ReglaPrecioDeleteView.as_view(), name='regla_delete'),
     
-    # precios por artículo (web)
+    # precios por artículo
     path('precios/', views.PrecioArticuloListView.as_view(), name='precio_list'),
     path('precios/nuevo/', views.PrecioArticuloCreateView.as_view(), name='precio_create'),
     path('precios/<int:pk>/', views.PrecioArticuloDetailView.as_view(), name='precio_detail'),
@@ -74,5 +75,4 @@ urlpatterns = [
     path('combinaciones/<int:pk>/', views.CombinacionDetailView.as_view(), name='combinacion_detail'),
     path('combinaciones/<int:pk>/editar/', views.CombinacionUpdateView.as_view(), name='combinacion_update'),
     path('combinaciones/<int:pk>/eliminar/', views.CombinacionDeleteView.as_view(), name='combinacion_delete'),
-
 ]
